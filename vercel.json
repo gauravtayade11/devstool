@@ -12,7 +12,7 @@
       ]
     },
     {
-      "source": "/(.*\\.(js|css|woff2|woff|ttf|otf|png|jpg|svg|ico))",
+      "source": "/:path*.:ext(js|css|woff2|woff|ttf|otf|png|jpg|svg|ico)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
