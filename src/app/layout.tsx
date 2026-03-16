@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://devstool.vercel.app",
   },
+  verification: {
+    google: "s-IeRmOdJyjY-pptUXzdk5jCYcsB09-F7jgW91fkRvo",
+  },
 };
 
 export default function RootLayout({
