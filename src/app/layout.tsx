@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://devstool.vercel.app"),
   title: {
     default: "DevsTool — Developer & DevOps Toolkit",
     template: "%s — DevsTool",
@@ -16,6 +17,10 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: "DevsTool",
     type: "website",
+    url: "https://devstool.vercel.app",
+  },
+  alternates: {
+    canonical: "https://devstool.vercel.app",
   },
 };
 
