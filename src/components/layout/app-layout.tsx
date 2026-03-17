@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { ShieldCheck, Menu, Globe } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ShieldCheck, Menu, Globe, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Sidebar } from "./sidebar";
+import { CommandPalette } from "@/components/ui/command-palette";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,8 +12,20 @@ interface LayoutProps {
 
 export function AppLayout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
   const pathname = usePathname();
   const isProxyPage = pathname === "/http-headers";
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setPaletteOpen((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
 
   return (
     <div className="flex h-screen bg-zinc-950 text-zinc-50 overflow-hidden font-sans">
@@ -24,6 +37,9 @@ export function AppLayout({ children }: LayoutProps) {
           aria-hidden="true"
         />
       )}
+
+      {/* Command Palette */}
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
 
       {/* Sidebar Navigation */}
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -40,9 +56,16 @@ export function AppLayout({ children }: LayoutProps) {
             >
               <Menu className="w-5 h-5" />
             </button>
-            <div className="text-zinc-400 text-sm font-medium hidden md:block">
-              Select a tool from the sidebar to begin
-            </div>
+            <button
+              onClick={() => setPaletteOpen(true)}
+              className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors text-sm"
+            >
+              <Search className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Search tools...</span>
+              <kbd className="hidden md:inline-flex items-center gap-0.5 text-[10px] font-mono text-zinc-600 bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-700">
+                ⌘K
+              </kbd>
+            </button>
           </div>
 
           <div className="flex items-center space-x-3">
