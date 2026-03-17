@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "DevsTool",
     type: "website",
     url: "https://devstool.vercel.app",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "DevsTool" }],
+    images: [{ url: "/og", width: 1200, height: 630, alt: "DevsTool — Developer & DevOps Toolkit" }],
   },
   alternates: {
     canonical: "https://devstool.vercel.app",

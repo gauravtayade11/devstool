@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DevsTool
 
-## Getting Started
+**17 fast, privacy-first developer & DevOps utilities — all client-side.**
 
-First, run the development server:
+> No sign-up. No data collection. No data ever leaves your browser.
+
+🔗 **Live:** [devstool.vercel.app](https://devstool.vercel.app)
+
+---
+
+## Tools
+
+### Developer Tools
+| Tool | Description |
+|------|-------------|
+| [JSON Formatter](https://devstool.vercel.app/json-formatter) | Format, validate, and minify JSON with Monaco Editor |
+| [Base64 Encoder](https://devstool.vercel.app/base64) | Encode/decode Base64 with full UTF-8 support |
+| [URL Encoder](https://devstool.vercel.app/url-encoder) | Encode/decode URL parameters |
+| [JWT Decoder](https://devstool.vercel.app/jwt) | Decode JWT tokens with live expiry countdown |
+| [Timestamp Converter](https://devstool.vercel.app/timestamp) | Convert Unix timestamps to human-readable dates |
+| [UUID Generator](https://devstool.vercel.app/uuid) | Generate bulk RFC-4122 UUIDs |
+| [Diff Checker](https://devstool.vercel.app/diff-checker) | Compare two texts with line/word/char-level diff |
+| [Markdown Preview](https://devstool.vercel.app/markdown-preview) | Live Markdown preview with GitHub Flavored Markdown |
+
+### DevOps Tools
+| Tool | Description |
+|------|-------------|
+| [YAML Validator](https://devstool.vercel.app/yaml-validator) | Lint and format Kubernetes & CI configs |
+| [ENV Parser](https://devstool.vercel.app/env-parser) | Parse and validate `.env` files, export to JSON |
+| [Log Formatter](https://devstool.vercel.app/log-formatter) | Format JSON logs with level filtering |
+| [Dockerfile Linter](https://devstool.vercel.app/dockerfile-linter) | Lint Dockerfiles against 12 best-practice rules |
+| [Git Command Builder](https://devstool.vercel.app/git-builder) | Build complex git commands with a visual UI |
+| [Cron Builder](https://devstool.vercel.app/cron-builder) | Build and understand cron expressions |
+| [Port Reference](https://devstool.vercel.app/port-reference) | Look up well-known TCP/UDP port numbers |
+| [HTTP Headers](https://devstool.vercel.app/http-headers) | Inspect response headers and security posture |
+| [Secret Scanner](https://devstool.vercel.app/secret-scanner) | Detect exposed credentials, API keys, and tokens |
+
+---
+
+## Features
+
+- **⌘K Command Palette** — jump to any tool instantly
+- **Shareable links** — encode tool state in URL, share with teammates
+- **100% client-side** — no backend receives your data (except HTTP Headers proxy)
+- **Secret Scanner** — 20+ patterns: AWS, GitHub, GCP, Azure, Stripe, Discord, GitLab, and more
+- **Monaco Editor** — VS Code-grade editing for JSON, YAML, Dockerfile
+- **Privacy badge** — every tool clearly shows whether data is local or proxied
+- **SEO optimized** — per-page metadata, sitemap, Open Graph image
+
+---
+
+## Tech Stack
+
+- [Next.js 16](https://nextjs.org) — App Router, static generation
+- [TypeScript](https://www.typescriptlang.org) — strict mode
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [Monaco Editor](https://microsoft.github.io/monaco-editor/) — via `@monaco-editor/react`
+- [Vercel](https://vercel.com) — hosting + analytics
+
+---
+
+## Run Locally
 
 ```bash
+git clone https://github.com/gauravtayade11/devstool.git
+cd devstool
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy
 
-## Learn More
+Optimized for Vercel. No environment variables required.
 
-To learn more about Next.js, take a look at the following resources:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/gauravtayade11/devstool)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Why DevsTool?
 
-## Deploy on Vercel
+Most online dev tools are free because your data is the product. When you paste a JWT, `.env` file, or API key into a random online tool, you don't know if it's being logged.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+DevsTool runs everything in your browser. There's nothing to compromise.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## License
+
+MIT
