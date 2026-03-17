@@ -14,10 +14,15 @@ export const metadata: Metadata = {
   },
   description: "15 fast, privacy-first developer and DevOps utilities. JSON formatter, JWT decoder, Secret Scanner, Dockerfile linter, and more — all client-side.",
   keywords: ["developer tools", "devops tools", "json formatter", "jwt decoder", "secret scanner", "dockerfile linter", "yaml validator"],
+  icons: {
+    icon: "/icon.svg",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     siteName: "DevsTool",
     type: "website",
     url: "https://devstool.vercel.app",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "DevsTool" }],
   },
   alternates: {
     canonical: "https://devstool.vercel.app",

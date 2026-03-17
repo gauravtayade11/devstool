@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { loader } from "@monaco-editor/react";
 loader.config({ paths: { vs: "https://cdn.jsdelivr.net/npm/monaco-editor@0.55.1/min/vs" } });
@@ -11,13 +11,20 @@ const Editor = dynamic(() => import("@monaco-editor/react"), {
 });
 import { FileDown, FileUp, Sparkles, Trash2, WrapText } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
+import { ShareButton } from "@/components/ui/share-button";
 import { ErrorAlert } from "@/components/ui/error-alert";
+import { getSharedState } from "@/lib/share";
 
 export default function JsonFormatter() {
   const [inputData, setInputData] = useState("");
   const [errorLine, setErrorLine] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const s = getSharedState<{ input: string }>();
+    if (s?.input) setInputData(s.input);
+  }, []);
 
   const handleFormat = () => {
     try {
@@ -187,6 +194,7 @@ export default function JsonFormatter() {
                 text={inputData}
                 className="text-zinc-500 hover:text-white hover:bg-zinc-800"
               />
+              <ShareButton getState={() => ({ input: inputData })} disabled={!inputData} />
           </div>
         </div>
 

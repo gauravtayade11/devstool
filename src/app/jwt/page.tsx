@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { Trash2, ShieldAlert, ShieldCheck, AlertCircle, Clock, KeyRound, Lock } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
+import { ShareButton } from "@/components/ui/share-button";
+import { getSharedState } from "@/lib/share";
 
 interface JwtHeader {
   alg: string;
@@ -55,6 +57,12 @@ export default function JwtDecoder() {
   const [decoded, setDecoded] = useState<JwtData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const countdown = useCountdown(decoded?.expiresAt ?? null);
+
+  useEffect(() => {
+    const s = getSharedState<{ token: string }>();
+    if (s?.token) parseJwt(s.token);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const parseJwt = (tokenStr: string) => {
     setToken(tokenStr);
@@ -154,14 +162,17 @@ export default function JwtDecoder() {
         <div className="flex flex-col rounded-xl overflow-hidden border border-zinc-800 bg-zinc-950 shadow-inner">
           <div className="bg-zinc-900 h-12 border-b border-zinc-800 flex items-center justify-between px-4 shrink-0">
             <span className="text-sm font-medium text-zinc-300">Encoded Token</span>
-             <button
-              onClick={() => { setToken(""); setDecoded(null); setError(null); }}
-              className="p-1.5 text-zinc-500 hover:text-rose-400 hover:bg-zinc-800 rounded transition-colors"
-              title="Clear Input"
-              aria-label="Clear input"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
+             <div className="flex items-center gap-1">
+              <ShareButton getState={() => ({ token })} disabled={!token} />
+              <button
+                onClick={() => { setToken(""); setDecoded(null); setError(null); }}
+                className="p-1.5 text-zinc-500 hover:text-rose-400 hover:bg-zinc-800 rounded transition-colors"
+                title="Clear Input"
+                aria-label="Clear input"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
           </div>
           <div className="flex-1 relative">
             <textarea

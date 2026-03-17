@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { GitCompare, Trash2, Copy, ArrowLeftRight, Pencil } from "lucide-react";
 import * as Diff from "diff";
+import { ShareButton } from "@/components/ui/share-button";
+import { getSharedState } from "@/lib/share";
 
 type DiffMode = "lines" | "words" | "chars";
 type ViewState = "input" | "diff";
@@ -12,6 +14,11 @@ export default function DiffCheckerPage() {
   const [right, setRight] = useState("");
   const [mode, setMode] = useState<DiffMode>("lines");
   const [view, setView] = useState<ViewState>("input");
+
+  useEffect(() => {
+    const s = getSharedState<{ left: string; right: string }>();
+    if (s?.left || s?.right) { setLeft(s.left ?? ""); setRight(s.right ?? ""); }
+  }, []);
   const [copied, setCopied] = useState(false);
 
   const diff = useMemo(() => {
@@ -109,6 +116,7 @@ export default function DiffCheckerPage() {
           <button onClick={swap} className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-zinc-900 border border-zinc-800 rounded-lg text-zinc-400 hover:text-white transition-colors">
             <ArrowLeftRight className="w-3.5 h-3.5" /> Swap
           </button>
+          <ShareButton getState={() => ({ left, right })} disabled={!left && !right} />
           {view === "input" ? (
             <button
               onClick={compare}

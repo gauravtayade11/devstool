@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { FileText, Eye, Columns2, Trash2, Download } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
+import { ShareButton } from "@/components/ui/share-button";
+import { getSharedState } from "@/lib/share";
 
 type ViewMode = "split" | "edit" | "preview";
 
@@ -42,6 +44,11 @@ docker run -p 3000:3000 myapp
 export default function MarkdownPreviewPage() {
   const [input, setInput] = useState("");
   const [view, setView] = useState<ViewMode>("split");
+
+  useEffect(() => {
+    const s = getSharedState<{ input: string }>();
+    if (s?.input) setInput(s.input);
+  }, []);
 
   const download = () => {
     const blob = new Blob([input], { type: "text/markdown" });
@@ -95,6 +102,7 @@ export default function MarkdownPreviewPage() {
             </button>
           </div>
           <CopyButton text={input} disabled={!input} />
+          <ShareButton getState={() => ({ input })} disabled={!input} />
           <button
             onClick={download}
             disabled={!input}

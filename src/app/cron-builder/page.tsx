@@ -5,9 +5,16 @@ import cronstrue from "cronstrue";
 import { CronExpressionParser } from "cron-parser";
 import { Clock, RefreshCw, Info, FileCode2 } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
+import { ShareButton } from "@/components/ui/share-button";
+import { getSharedState } from "@/lib/share";
 
 export default function CronBuilder() {
   const [expression, setExpression] = useState("");
+
+  useEffect(() => {
+    const s = getSharedState<{ expression: string }>();
+    if (s?.expression) setExpression(s.expression);
+  }, []);
   const [explanation, setExplanation] = useState("");
   const [error, setError] = useState<string | null>(null);
   // Parse expression
@@ -55,10 +62,13 @@ export default function CronBuilder() {
   return (
     <div className="flex flex-col h-full max-w-5xl mx-auto py-4">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center">
-          <Clock className="w-6 h-6 mr-3 text-emerald-400" />
-          Cron Expression Builder
-        </h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center">
+            <Clock className="w-6 h-6 mr-3 text-emerald-400" />
+            Cron Expression Builder
+          </h1>
+          <ShareButton getState={() => ({ expression })} disabled={!expression} />
+        </div>
         <p className="text-zinc-400 text-sm mt-1">Easily build, parse, and understand complex cron job schedules.</p>
       </div>
 
