@@ -135,6 +135,62 @@ const PATTERNS: SecretPattern[] = [
     description: "API key or token value in an environment variable. May be sensitive depending on the service.",
     recommendation: "Ensure this file is in .gitignore. Consider using a secrets manager for production deployments.",
   },
+  {
+    id: "azure_storage_key",
+    name: "Azure Storage Account Key",
+    severity: "critical",
+    pattern: /DefaultEndpointsProtocol=https;AccountName=[^;]+;AccountKey=[A-Za-z0-9+/=]{88}/g,
+    description: "Azure Storage connection string with account key. Grants full read/write access to the storage account.",
+    recommendation: "Rotate the key in Azure Portal → Storage account → Access keys. Use managed identities instead.",
+  },
+  {
+    id: "azure_client_secret",
+    name: "Azure Client Secret",
+    severity: "critical",
+    pattern: /\b[A-Za-z0-9_~-]{3}\.[A-Za-z0-9_~-]{8}\.[A-Za-z0-9_~-]{34}\b/g,
+    description: "Azure AD application client secret. Grants access to Azure resources on behalf of the application.",
+    recommendation: "Rotate in Azure Portal → App registrations → Certificates & secrets. Use managed identities when possible.",
+  },
+  {
+    id: "gcp_service_account",
+    name: "GCP Service Account Key",
+    severity: "critical",
+    pattern: /"type":\s*"service_account"/g,
+    description: "Google Cloud service account key file content. Grants access to GCP resources based on IAM roles.",
+    recommendation: "Revoke immediately in GCP Console → IAM → Service accounts. Use Workload Identity Federation instead.",
+  },
+  {
+    id: "gcp_api_key",
+    name: "GCP API Key",
+    severity: "high",
+    pattern: /\b[A-Za-z0-9_-]{39}\b(?=.*[Gg]oogle|.*[Gg][Cc][Pp]|.*[Ff]irebase)/g,
+    description: "Potential Google Cloud Platform API key found near GCP-related context.",
+    recommendation: "Restrict or delete in GCP Console → APIs & Services → Credentials. Add API restrictions.",
+  },
+  {
+    id: "gitlab_token",
+    name: "GitLab Personal Access Token",
+    severity: "critical",
+    pattern: /\bglpat-[A-Za-z0-9_-]{20}\b/g,
+    description: "GitLab personal access token. Can access repositories, pipelines, and APIs.",
+    recommendation: "Revoke immediately: GitLab → User Settings → Access Tokens.",
+  },
+  {
+    id: "discord_token",
+    name: "Discord Bot Token",
+    severity: "critical",
+    pattern: /\b[MN][A-Za-z0-9]{23,25}\.[A-Za-z0-9_-]{6}\.[A-Za-z0-9_-]{27,38}\b/g,
+    description: "Discord bot token. Anyone with this token can control your bot and access servers it's in.",
+    recommendation: "Regenerate immediately in Discord Developer Portal → Applications → Bot → Reset Token.",
+  },
+  {
+    id: "datadog_api_key",
+    name: "Datadog API Key",
+    severity: "high",
+    pattern: /\b[a-f0-9]{32}\b(?=.*[Dd]atadog|.*[Dd][Dd]_)/g,
+    description: "Potential Datadog API key found near Datadog-related context.",
+    recommendation: "Revoke in Datadog → Organization settings → API Keys.",
+  },
 ];
 
 function maskValue(value: string): string {
@@ -166,18 +222,6 @@ const SEVERITY_CONFIG = {
     icon: <Info className="w-4 h-4 text-yellow-400 shrink-0" />,
   },
 };
-
-const SAMPLE = `# .env — example with intentionally exposed secrets
-DATABASE_URL=postgres://admin:hunter2@prod-db.internal:5432/app
-AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
-AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-STRIPE_SECRET_KEY=sk_live_ABCDEFGHIJKLMNOPQRSTUVwx
-GITHUB_TOKEN=ghp_1234567890abcdefghij1234567890abcd12
-SENDGRID_API_KEY=SG.ngeVJksRSZCqJKqFGGFmA.TwL2iGABf9DHoTf09kqeF_rhAgVwlFe4RBPHQc9Qo
-JWT_SECRET=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U
------BEGIN RSA PRIVATE KEY-----
-MIIEpAIBAAKCAQEA0Z3VS5JJcds3xHn/ygWep4PAtEsHAFqNMHFmCMUXMh1Jd...
------END RSA PRIVATE KEY-----`;
 
 export default function SecretScanner() {
   const [input, setInput] = useState("");

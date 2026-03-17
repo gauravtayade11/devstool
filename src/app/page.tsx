@@ -15,6 +15,8 @@ import {
   Network,
   Globe,
   ShieldAlert,
+  GitCompare,
+  FileText,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -29,6 +31,8 @@ const devTools = [
   { name: "JWT Decoder", description: "Inspect JSON Web Tokens and check expiry", path: "/jwt", icon: <KeyRound className="w-5 h-5" />, color: "text-purple-400", bg: "bg-purple-400/10" },
   { name: "Timestamp Converter", description: "Convert Unix timestamps to readable dates", path: "/timestamp", icon: <Clock className="w-5 h-5" />, color: "text-rose-400", bg: "bg-rose-400/10" },
   { name: "UUID Generator", description: "Generate and validate RFC-4122 UUIDs", path: "/uuid", icon: <FileCode2 className="w-5 h-5" />, color: "text-cyan-400", bg: "bg-cyan-400/10" },
+  { name: "Diff Checker", description: "Compare two texts line, word, or char-level", path: "/diff-checker", icon: <GitCompare className="w-5 h-5" />, color: "text-amber-400", bg: "bg-amber-400/10" },
+  { name: "Markdown Preview", description: "Write and preview Markdown with GFM support", path: "/markdown-preview", icon: <FileText className="w-5 h-5" />, color: "text-lime-400", bg: "bg-lime-400/10" },
 ];
 
 const devopsTools = [

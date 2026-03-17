@@ -17,7 +17,9 @@ import {
   Network,
   Globe,
   X,
-  ShieldAlert
+  ShieldAlert,
+  GitCompare,
+  FileText
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -32,6 +34,8 @@ const toolCategories = [
       { name: "JWT Decoder", path: "/jwt", icon: <KeyRound className="w-4 h-4 mr-3" /> },
       { name: "Timestamp Converter", path: "/timestamp", icon: <Clock className="w-4 h-4 mr-3" /> },
       { name: "UUID Generator", path: "/uuid", icon: <FileCode2 className="w-4 h-4 mr-3" /> },
+      { name: "Diff Checker", path: "/diff-checker", icon: <GitCompare className="w-4 h-4 mr-3" /> },
+      { name: "Markdown Preview", path: "/markdown-preview", icon: <FileText className="w-4 h-4 mr-3" /> },
     ]
   },
   {
