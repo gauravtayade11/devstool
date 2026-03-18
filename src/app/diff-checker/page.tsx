@@ -87,7 +87,7 @@ export default function DiffCheckerPage() {
   const edit = () => setView("input");
 
   return (
-    <div className="flex flex-col gap-4" style={{ height: "calc(100vh - 9rem)" }}>
+    <div className="flex flex-col gap-4 h-full">
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-3 shrink-0">
         <div className="flex items-center gap-3">

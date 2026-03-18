@@ -117,11 +117,15 @@ export default function PortReference() {
   return (
     <div className="flex flex-col h-full max-w-5xl mx-auto py-4">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center">
-          <Server className="w-6 h-6 mr-3 text-rose-500" />
-          Port Reference Guide
-        </h1>
-        <p className="text-zinc-400 text-sm mt-1">A searchable database of common networking ports, protocols, and their descriptions.</p>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
+            <Server className="w-4 h-4 text-rose-500" />
+          </div>
+          <div>
+            <h1 className="text-lg font-semibold text-white">Port Reference Guide</h1>
+            <p className="text-xs text-zinc-500">A searchable database of common networking ports, protocols, and their descriptions.</p>
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-4 mb-6">

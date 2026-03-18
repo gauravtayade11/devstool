@@ -17,6 +17,7 @@ import {
   ShieldAlert,
   GitCompare,
   FileText,
+  Container,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -26,25 +27,27 @@ export const metadata: Metadata = {
 
 const devTools = [
   { name: "JSON Formatter", description: "Format, validate, and minify JSON data", path: "/json-formatter", icon: <Braces className="w-5 h-5" />, color: "text-blue-400", bg: "bg-blue-400/10" },
-  { name: "Base64 Encoder", description: "Encode and decode Base64 strings safely", path: "/base64", icon: <Hash className="w-5 h-5" />, color: "text-emerald-400", bg: "bg-emerald-400/10" },
-  { name: "URL Encoder", description: "Safely encode and decode URL parameters", path: "/url-encoder", icon: <Network className="w-5 h-5" />, color: "text-indigo-400", bg: "bg-indigo-400/10" },
   { name: "JWT Decoder", description: "Inspect JSON Web Tokens and check expiry", path: "/jwt", icon: <KeyRound className="w-5 h-5" />, color: "text-purple-400", bg: "bg-purple-400/10" },
-  { name: "Timestamp Converter", description: "Convert Unix timestamps to readable dates", path: "/timestamp", icon: <Clock className="w-5 h-5" />, color: "text-rose-400", bg: "bg-rose-400/10" },
-  { name: "UUID Generator", description: "Generate and validate RFC-4122 UUIDs", path: "/uuid", icon: <FileCode2 className="w-5 h-5" />, color: "text-cyan-400", bg: "bg-cyan-400/10" },
+  { name: "Base64 Encoder", description: "Encode and decode Base64 strings safely", path: "/base64", icon: <Hash className="w-5 h-5" />, color: "text-emerald-400", bg: "bg-emerald-400/10" },
   { name: "Diff Checker", description: "Compare two texts line, word, or char-level", path: "/diff-checker", icon: <GitCompare className="w-5 h-5" />, color: "text-amber-400", bg: "bg-amber-400/10" },
   { name: "Markdown Preview", description: "Write and preview Markdown with GFM support", path: "/markdown-preview", icon: <FileText className="w-5 h-5" />, color: "text-lime-400", bg: "bg-lime-400/10" },
+  { name: "URL Encoder", description: "Safely encode and decode URL parameters", path: "/url-encoder", icon: <Network className="w-5 h-5" />, color: "text-indigo-400", bg: "bg-indigo-400/10" },
+  { name: "UUID Generator", description: "Generate and validate RFC-4122 UUIDs", path: "/uuid", icon: <FileCode2 className="w-5 h-5" />, color: "text-cyan-400", bg: "bg-cyan-400/10" },
+  { name: "Timestamp Converter", description: "Convert Unix timestamps to readable dates", path: "/timestamp", icon: <Clock className="w-5 h-5" />, color: "text-rose-400", bg: "bg-rose-400/10" },
 ];
 
 const devopsTools = [
-  { name: "YAML Validator", description: "Lint and format Kubernetes and CI configs", path: "/yaml-validator", icon: <ListTree className="w-5 h-5" />, color: "text-orange-400", bg: "bg-orange-400/10" },
-  { name: "ENV Parser", description: "Parse and validate .env files, export to JSON", path: "/env-parser", icon: <Settings2 className="w-5 h-5" />, color: "text-cyan-400", bg: "bg-cyan-400/10" },
-  { name: "Log Formatter", description: "Format JSON logs and filter by severity", path: "/log-formatter", icon: <FileJson className="w-5 h-5" />, color: "text-teal-400", bg: "bg-teal-400/10" },
-  { name: "Dockerfile Linter", description: "Lint Dockerfiles for best practices", path: "/dockerfile-linter", icon: <FileCode2 className="w-5 h-5" />, color: "text-sky-400", bg: "bg-sky-400/10" },
-  { name: "Git Command Builder", description: "Build complex git commands with a UI", path: "/git-builder", icon: <GitBranch className="w-5 h-5" />, color: "text-pink-400", bg: "bg-pink-400/10" },
-  { name: "Cron Builder", description: "Build and understand cron expressions", path: "/cron-builder", icon: <Clock className="w-5 h-5" />, color: "text-emerald-400", bg: "bg-emerald-400/10" },
-  { name: "Port Reference", description: "Look up well-known port numbers", path: "/port-reference", icon: <Network className="w-5 h-5" />, color: "text-violet-400", bg: "bg-violet-400/10" },
-  { name: "HTTP Headers", description: "Inspect response headers and security posture", path: "/http-headers", icon: <Globe className="w-5 h-5" />, color: "text-blue-400", bg: "bg-blue-400/10" },
+  { name: "K8s Generator", description: "Generate Deployment, Service, Ingress, ConfigMap and HPA YAML", path: "/k8s-generator", icon: <Container className="w-5 h-5" />, color: "text-cyan-400", bg: "bg-cyan-400/10" },
+  { name: "CIDR Calculator", description: "Subnet mask, host range, broadcast address from CIDR notation", path: "/cidr-calculator", icon: <Network className="w-5 h-5" />, color: "text-indigo-400", bg: "bg-indigo-400/10" },
   { name: "Secret Scanner", description: "Detect exposed credentials, API keys and tokens before they leak", path: "/secret-scanner", icon: <ShieldAlert className="w-5 h-5" />, color: "text-red-400", bg: "bg-red-400/10" },
+  { name: "Dockerfile Linter", description: "Lint Dockerfiles for best practices", path: "/dockerfile-linter", icon: <FileCode2 className="w-5 h-5" />, color: "text-sky-400", bg: "bg-sky-400/10" },
+  { name: "YAML Validator", description: "Lint and format Kubernetes and CI configs", path: "/yaml-validator", icon: <ListTree className="w-5 h-5" />, color: "text-orange-400", bg: "bg-orange-400/10" },
+  { name: "ENV Parser", description: "Parse and validate .env files, export to JSON", path: "/env-parser", icon: <Settings2 className="w-5 h-5" />, color: "text-teal-400", bg: "bg-teal-400/10" },
+  { name: "Log Formatter", description: "Format JSON logs and filter by severity", path: "/log-formatter", icon: <FileJson className="w-5 h-5" />, color: "text-yellow-400", bg: "bg-yellow-400/10" },
+  { name: "Cron Builder", description: "Build and understand cron expressions", path: "/cron-builder", icon: <Clock className="w-5 h-5" />, color: "text-emerald-400", bg: "bg-emerald-400/10" },
+  { name: "Git Command Builder", description: "Build complex git commands with a UI", path: "/git-builder", icon: <GitBranch className="w-5 h-5" />, color: "text-pink-400", bg: "bg-pink-400/10" },
+  { name: "HTTP Headers", description: "Inspect response headers and security posture", path: "/http-headers", icon: <Globe className="w-5 h-5" />, color: "text-blue-400", bg: "bg-blue-400/10" },
+  { name: "Port Reference", description: "Look up well-known port numbers", path: "/port-reference", icon: <Network className="w-5 h-5" />, color: "text-violet-400", bg: "bg-violet-400/10" },
 ];
 
 function ToolCard({ tool }: { tool: typeof devTools[0] }) {

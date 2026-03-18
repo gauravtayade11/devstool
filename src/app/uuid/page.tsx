@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Copy, RefreshCw, Hash, List, Trash2, Download, Check } from "lucide-react";
+import { Copy, FileCode2, RefreshCw, Hash, List, Trash2, Download, Check } from "lucide-react";
 
 export default function UuidGenerator() {
   const [uuids, setUuids] = useState<string[]>([]);
@@ -70,8 +70,15 @@ export default function UuidGenerator() {
   return (
     <div className="flex flex-col h-full max-w-5xl mx-auto py-4">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white tracking-tight">UUID Generator</h1>
-        <p className="text-zinc-400 text-sm mt-1">Generate random version 4 Universally Unique Identifiers (UUIDs).</p>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+            <FileCode2 className="w-4 h-4 text-cyan-400" />
+          </div>
+          <div>
+            <h1 className="text-lg font-semibold text-white">UUID Generator</h1>
+            <p className="text-xs text-zinc-500">Generate random version 4 Universally Unique Identifiers (UUIDs).</p>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

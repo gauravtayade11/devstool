@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRightLeft, Copy, Trash2, Check, ExternalLink } from "lucide-react";
+import { ArrowRightLeft, Copy, Network, Trash2, Check, ExternalLink } from "lucide-react";
 
 export default function UrlEncoder() {
   const [input, setInput] = useState("");
@@ -77,11 +77,18 @@ export default function UrlEncoder() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)]">
+    <div className="flex flex-col h-full">
       <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">URL Encoder / Decoder</h1>
-          <p className="text-zinc-400 text-sm mt-1">Safely encode or decode URL query parameters and paths.</p>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+              <Network className="w-4 h-4 text-indigo-400" />
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-white">URL Encoder / Decoder</h1>
+              <p className="text-xs text-zinc-500">Safely encode or decode URL query parameters and paths.</p>
+            </div>
+          </div>
         </div>
 
         <div className="flex items-center space-x-3">

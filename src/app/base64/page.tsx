@@ -1,7 +1,7 @@
   "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRightLeft, Trash2, AlertCircle } from "lucide-react";
+import { ArrowRightLeft, Hash, Trash2, AlertCircle } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
 import { ShareButton } from "@/components/ui/share-button";
 import { getSharedState } from "@/lib/share";
@@ -69,8 +69,15 @@ export default function Base64Converter() {
     <div className="flex flex-col h-full max-w-5xl mx-auto py-4">
       <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Base64 Encoder / Decoder</h1>
-          <p className="text-zinc-400 text-sm mt-1">Safely encode and decode UTF-8 strings to Base64 format.</p>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+              <Hash className="w-4 h-4 text-emerald-400" />
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-white">Base64 Encoder / Decoder</h1>
+              <p className="text-xs text-zinc-500">Safely encode and decode UTF-8 strings to Base64 format.</p>
+            </div>
+          </div>
         </div>
 
         <div className="flex bg-zinc-900 border border-zinc-800 p-1 rounded-lg w-full md:w-auto">

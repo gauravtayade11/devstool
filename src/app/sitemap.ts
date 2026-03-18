@@ -9,6 +9,8 @@ const tools = [
   "jwt",
   "timestamp",
   "uuid",
+  "diff-checker",
+  "markdown-preview",
   "yaml-validator",
   "env-parser",
   "log-formatter",
@@ -18,6 +20,8 @@ const tools = [
   "port-reference",
   "http-headers",
   "secret-scanner",
+  "cidr-calculator",
+  "k8s-generator",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

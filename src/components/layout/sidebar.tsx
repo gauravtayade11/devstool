@@ -19,7 +19,8 @@ import {
   X,
   ShieldAlert,
   GitCompare,
-  FileText
+  FileText,
+  Container,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -29,28 +30,30 @@ const toolCategories = [
     icon: <Code2 className="w-5 h-5 mr-3 text-blue-400" />,
     items: [
       { name: "JSON Formatter", path: "/json-formatter", icon: <Braces className="w-4 h-4 mr-3" /> },
-      { name: "Base64 Encoder", path: "/base64", icon: <Hash className="w-4 h-4 mr-3" /> },
-      { name: "URL Encoder", path: "/url-encoder", icon: <Network className="w-4 h-4 mr-3" /> },
       { name: "JWT Decoder", path: "/jwt", icon: <KeyRound className="w-4 h-4 mr-3" /> },
-      { name: "Timestamp Converter", path: "/timestamp", icon: <Clock className="w-4 h-4 mr-3" /> },
-      { name: "UUID Generator", path: "/uuid", icon: <FileCode2 className="w-4 h-4 mr-3" /> },
+      { name: "Base64 Encoder", path: "/base64", icon: <Hash className="w-4 h-4 mr-3" /> },
       { name: "Diff Checker", path: "/diff-checker", icon: <GitCompare className="w-4 h-4 mr-3" /> },
       { name: "Markdown Preview", path: "/markdown-preview", icon: <FileText className="w-4 h-4 mr-3" /> },
+      { name: "URL Encoder", path: "/url-encoder", icon: <Network className="w-4 h-4 mr-3" /> },
+      { name: "UUID Generator", path: "/uuid", icon: <FileCode2 className="w-4 h-4 mr-3" /> },
+      { name: "Timestamp Converter", path: "/timestamp", icon: <Clock className="w-4 h-4 mr-3" /> },
     ]
   },
   {
     title: "DevOps Tools",
     icon: <TerminalSquare className="w-5 h-5 mr-3 text-orange-400" />,
     items: [
+      { name: "K8s Generator", path: "/k8s-generator", icon: <Container className="w-4 h-4 mr-3" /> },
+      { name: "CIDR Calculator", path: "/cidr-calculator", icon: <Network className="w-4 h-4 mr-3" /> },
+      { name: "Secret Scanner", path: "/secret-scanner", icon: <ShieldAlert className="w-4 h-4 mr-3" /> },
+      { name: "Dockerfile Linter", path: "/dockerfile-linter", icon: <FileCode2 className="w-4 h-4 mr-3" /> },
       { name: "YAML Validator", path: "/yaml-validator", icon: <ListTree className="w-4 h-4 mr-3" /> },
       { name: "ENV Parser", path: "/env-parser", icon: <Settings2 className="w-4 h-4 mr-3" /> },
       { name: "Log Formatter", path: "/log-formatter", icon: <FileJson className="w-4 h-4 mr-3" /> },
-      { name: "Dockerfile Linter", path: "/dockerfile-linter", icon: <FileCode2 className="w-4 h-4 mr-3" /> },
-      { name: "Git Command Builder", path: "/git-builder", icon: <GitBranch className="w-4 h-4 mr-3" /> },
       { name: "Cron Builder", path: "/cron-builder", icon: <Clock className="w-4 h-4 mr-3" /> },
-      { name: "Port Reference", path: "/port-reference", icon: <Network className="w-4 h-4 mr-3" /> },
+      { name: "Git Command Builder", path: "/git-builder", icon: <GitBranch className="w-4 h-4 mr-3" /> },
       { name: "HTTP Headers", path: "/http-headers", icon: <Globe className="w-4 h-4 mr-3" /> },
-      { name: "Secret Scanner", path: "/secret-scanner", icon: <ShieldAlert className="w-4 h-4 mr-3" /> },
+      { name: "Port Reference", path: "/port-reference", icon: <Network className="w-4 h-4 mr-3" /> },
     ]
   }
 ];

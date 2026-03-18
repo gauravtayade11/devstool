@@ -145,8 +145,15 @@ export default function JwtDecoder() {
 
       <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">JWT Decoder</h1>
-          <p className="text-zinc-400 text-sm mt-1">Decode, inspect, and verify JSON Web Tokens client-side.</p>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+              <KeyRound className="w-4 h-4 text-purple-400" />
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-white">JWT Decoder</h1>
+              <p className="text-xs text-zinc-500">Decode, inspect, and verify JSON Web Tokens client-side.</p>
+            </div>
+          </div>
         </div>
          <button 
            onClick={loadExample}

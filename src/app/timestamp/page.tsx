@@ -73,8 +73,15 @@ export default function TimestampConverter() {
   return (
     <div className="flex flex-col h-full max-w-4xl mx-auto py-4">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white tracking-tight">Timestamp Converter</h1>
-        <p className="text-zinc-400 text-sm mt-1">Convert Unix timestamps (epoch) to human-readable dates and formats.</p>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
+            <Clock className="w-4 h-4 text-rose-400" />
+          </div>
+          <div>
+            <h1 className="text-lg font-semibold text-white">Timestamp Converter</h1>
+            <p className="text-xs text-zinc-500">Convert Unix timestamps (epoch) to human-readable dates and formats.</p>
+          </div>
+        </div>
       </div>
 
       {/* Current Epoch Bar */}
