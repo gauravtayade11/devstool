@@ -141,7 +141,7 @@ export default function EnvParser() {
   };
 
   return (
-    <div className="flex flex-col h-full max-w-6xl mx-auto">
+    <div className="flex flex-col h-full">
       <div className="mb-4 flex items-start space-x-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs">
         <Lock className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
         <p>

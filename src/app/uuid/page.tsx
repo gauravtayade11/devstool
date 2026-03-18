@@ -68,7 +68,7 @@ export default function UuidGenerator() {
   };
 
   return (
-    <div className="flex flex-col h-full max-w-5xl mx-auto py-4">
+    <div className="flex flex-col h-full py-4">
       <div className="mb-6">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">

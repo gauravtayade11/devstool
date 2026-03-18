@@ -211,7 +211,7 @@ export default function DockerfileLinter() {
   const infos = lintResults.filter(r => r.level === 'info');
 
   return (
-    <div className="flex flex-col h-full max-w-7xl mx-auto">
+    <div className="flex flex-col h-full">
       <div className="mb-6 flex flex-col items-start gap-4">
         <div>
           <div className="flex items-center gap-3">

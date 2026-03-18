@@ -1,13 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRightLeft, Copy, Network, Trash2, Check, ExternalLink } from "lucide-react";
+import { saveHistory, getHistory } from "@/lib/tool-history";
 
 export default function UrlEncoder() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [mode, setMode] = useState<"encode" | "decode">("encode");
   const [isCopied, setIsCopied] = useState(false);
+  const [history, setHistory] = useState<string[]>([]);
+
+  useEffect(() => { setHistory(getHistory("url-encoder")); }, []);
 
   const handleConversion = (text: string, currentMode: "encode" | "decode") => {
     setInput(text);
@@ -137,10 +141,22 @@ export default function UrlEncoder() {
           <textarea
             value={input}
             onChange={(e) => handleConversion(e.target.value, mode)}
+            onBlur={() => { if (input.trim()) { saveHistory("url-encoder", input); setHistory(getHistory("url-encoder")); } }}
             placeholder={mode === "encode" ? "e.g., https://example.com/search?q=hello world" : "e.g., https%3A%2F%2Fexample.com"}
             className="flex-1 w-full p-4 bg-transparent text-zinc-100 font-mono text-sm resize-none focus:outline-none focus:ring-0 custom-scrollbar placeholder:text-zinc-700"
             spellCheck={false}
           />
+          {history.length > 0 && (
+            <div className="flex flex-wrap gap-2 px-4 py-2 border-t border-zinc-800">
+              <span className="text-xs text-zinc-600 self-center">Recent:</span>
+              {history.map((h, i) => (
+                <button key={i} onClick={() => handleConversion(h, mode)}
+                  className="px-2.5 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-md text-zinc-500 hover:text-zinc-200 hover:border-zinc-700 transition-colors font-mono truncate max-w-[200px]">
+                  {h.length > 30 ? h.slice(0, 30) + "…" : h}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Output Area */}

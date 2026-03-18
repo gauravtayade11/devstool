@@ -5,6 +5,7 @@ import { Trash2, ShieldAlert, ShieldCheck, AlertCircle, Clock, KeyRound, Lock } 
 import { CopyButton } from "@/components/ui/copy-button";
 import { ShareButton } from "@/components/ui/share-button";
 import { getSharedState } from "@/lib/share";
+import { saveHistory, getHistory } from "@/lib/tool-history";
 
 interface JwtHeader {
   alg: string;
@@ -56,7 +57,12 @@ export default function JwtDecoder() {
   const [token, setToken] = useState("");
   const [decoded, setDecoded] = useState<JwtData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [history, setHistory] = useState<string[]>([]);
   const countdown = useCountdown(decoded?.expiresAt ?? null);
+
+  useEffect(() => {
+    setHistory(getHistory("jwt"));
+  }, []);
 
   useEffect(() => {
     const s = getSharedState<{ token: string }>();
@@ -122,7 +128,10 @@ export default function JwtDecoder() {
         expiresAt,
         issuedAt
       });
-      
+
+      saveHistory("jwt", tokenStr);
+      setHistory(getHistory("jwt"));
+
     } catch (err: any) {
       setError(err.message || "Failed to parse JWT.");
       setDecoded(null);
@@ -135,7 +144,7 @@ export default function JwtDecoder() {
   };
 
   return (
-    <div className="flex flex-col h-full max-w-5xl mx-auto py-4">
+    <div className="flex flex-col h-full py-4">
       <div className="mb-4 flex items-start space-x-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs">
         <Lock className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
         <p>
@@ -190,6 +199,17 @@ export default function JwtDecoder() {
               spellCheck={false}
             />
           </div>
+          {history.length > 0 && (
+            <div className="flex flex-wrap gap-2 px-4 py-2 border-t border-zinc-800">
+              <span className="text-xs text-zinc-600 self-center">Recent:</span>
+              {history.map((h, i) => (
+                <button key={i} onClick={() => parseJwt(h)}
+                  className="px-2.5 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-md text-zinc-500 hover:text-zinc-200 hover:border-zinc-700 transition-colors font-mono truncate max-w-[200px]">
+                  {h.length > 30 ? h.slice(0, 30) + "…" : h}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Output Area (Right) */}

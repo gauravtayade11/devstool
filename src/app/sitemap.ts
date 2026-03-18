@@ -22,6 +22,17 @@ const tools = [
   "secret-scanner",
   "cidr-calculator",
   "k8s-generator",
+  "hash-generator",
+  "json-yaml",
+  "ssl-decoder",
+  "github-actions-generator",
+  "gitlab-ci-generator",
+  "terraform-tfvars-generator",
+  "helm-chart-generator",
+  "aws-arn-parser",
+  "cloud-storage-url-parser",
+  "promql-builder",
+  "regex-log-parser",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

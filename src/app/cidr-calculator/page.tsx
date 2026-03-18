@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Network, Copy, Check, ChevronDown, ChevronUp } from "lucide-react";
+import { saveHistory, getHistory } from "@/lib/tool-history";
 
 // ── Pure CIDR math ──────────────────────────────────────────────────────────
 
@@ -179,6 +180,9 @@ export default function CidrCalculatorPage() {
   const [input, setInput] = useState("");
   const [checkIp, setCheckIp] = useState("");
   const [showBinary, setShowBinary] = useState(false);
+  const [history, setHistory] = useState<string[]>([]);
+
+  useEffect(() => { setHistory(getHistory("cidr")); }, []);
 
   const info = useMemo(() => {
     const trimmed = input.trim();
@@ -194,7 +198,7 @@ export default function CidrCalculatorPage() {
   const isError = input.length > 5 && !info;
 
   return (
-    <div className="max-w-3xl mx-auto flex flex-col gap-6 h-full overflow-y-auto no-scrollbar">
+    <div className="flex flex-col gap-6 h-full overflow-y-auto no-scrollbar">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
@@ -213,6 +217,7 @@ export default function CidrCalculatorPage() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onBlur={() => { if (input.trim() && isValidCidr(input.trim())) { saveHistory("cidr", input.trim()); setHistory(getHistory("cidr")); } }}
             placeholder="e.g. 192.168.1.0/24"
             spellCheck={false}
             className={`w-full bg-zinc-900 border rounded-lg px-4 py-3 font-mono text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none transition-colors ${
@@ -241,6 +246,18 @@ export default function CidrCalculatorPage() {
             </button>
           ))}
         </div>
+
+        {history.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-1">
+            <span className="text-xs text-zinc-600 self-center">Recent:</span>
+            {history.map((h, i) => (
+              <button key={i} onClick={() => setInput(h)}
+                className="px-2.5 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-md text-zinc-500 hover:text-zinc-200 hover:border-zinc-700 transition-colors font-mono truncate max-w-[200px]">
+                {h.length > 30 ? h.slice(0, 30) + "…" : h}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Results */}

@@ -5,27 +5,47 @@ import { useRouter } from "next/navigation";
 import {
   Search, Braces, Hash, Network, KeyRound, Clock, FileCode2,
   ListTree, Settings2, FileJson, GitBranch, Globe, ShieldAlert,
-  GitCompare, FileText, X,
+  GitCompare, FileText, X, Container, ShieldCheck, ArrowLeftRight,
+  Activity, Package, GitMerge, Cloud, HardDrive, FileCode,
 } from "lucide-react";
 
 const TOOLS = [
+  // Developer Tools
   { name: "JSON Formatter", description: "Format, validate and minify JSON", path: "/json-formatter", icon: <Braces className="w-4 h-4" />, tags: ["json", "format", "validate", "minify"] },
-  { name: "Base64 Encoder", description: "Encode and decode Base64 strings", path: "/base64", icon: <Hash className="w-4 h-4" />, tags: ["base64", "encode", "decode"] },
-  { name: "URL Encoder", description: "Encode and decode URL parameters", path: "/url-encoder", icon: <Network className="w-4 h-4" />, tags: ["url", "encode", "decode", "uri"] },
   { name: "JWT Decoder", description: "Inspect JSON Web Tokens", path: "/jwt", icon: <KeyRound className="w-4 h-4" />, tags: ["jwt", "token", "auth", "decode"] },
-  { name: "Timestamp Converter", description: "Convert Unix timestamps to dates", path: "/timestamp", icon: <Clock className="w-4 h-4" />, tags: ["timestamp", "unix", "date", "time", "epoch"] },
-  { name: "UUID Generator", description: "Generate RFC-4122 UUIDs", path: "/uuid", icon: <FileCode2 className="w-4 h-4" />, tags: ["uuid", "guid", "generate"] },
+  { name: "Base64 Encoder", description: "Encode and decode Base64 strings", path: "/base64", icon: <Hash className="w-4 h-4" />, tags: ["base64", "encode", "decode"] },
   { name: "Diff Checker", description: "Compare two texts side by side", path: "/diff-checker", icon: <GitCompare className="w-4 h-4" />, tags: ["diff", "compare", "text"] },
   { name: "Markdown Preview", description: "Write and preview Markdown", path: "/markdown-preview", icon: <FileText className="w-4 h-4" />, tags: ["markdown", "preview", "md", "gfm"] },
-  { name: "YAML Validator", description: "Lint and format YAML configs", path: "/yaml-validator", icon: <ListTree className="w-4 h-4" />, tags: ["yaml", "validate", "lint", "kubernetes", "k8s"] },
-  { name: "ENV Parser", description: "Parse and validate .env files", path: "/env-parser", icon: <Settings2 className="w-4 h-4" />, tags: ["env", "dotenv", "environment", "variables"] },
-  { name: "Log Formatter", description: "Format and filter JSON logs", path: "/log-formatter", icon: <FileJson className="w-4 h-4" />, tags: ["log", "format", "filter", "json"] },
+  { name: "Hash Generator", description: "MD5, SHA-256, SHA-512 hashes", path: "/hash-generator", icon: <Hash className="w-4 h-4" />, tags: ["hash", "md5", "sha256", "sha512", "checksum"] },
+  { name: "JSON ↔ YAML", description: "Convert between JSON and YAML", path: "/json-yaml", icon: <ArrowLeftRight className="w-4 h-4" />, tags: ["json", "yaml", "convert", "transform"] },
+  { name: "URL Encoder", description: "Encode and decode URL parameters", path: "/url-encoder", icon: <Network className="w-4 h-4" />, tags: ["url", "encode", "decode", "uri"] },
+  { name: "UUID Generator", description: "Generate RFC-4122 UUIDs", path: "/uuid", icon: <FileCode2 className="w-4 h-4" />, tags: ["uuid", "guid", "generate"] },
+  { name: "Timestamp Converter", description: "Convert Unix timestamps to dates", path: "/timestamp", icon: <Clock className="w-4 h-4" />, tags: ["timestamp", "unix", "date", "time", "epoch"] },
+  // CI/CD
+  { name: "GitHub Actions Generator", description: "Generate GitHub Actions workflow YAML", path: "/github-actions-generator", icon: <GitMerge className="w-4 h-4" />, tags: ["github", "actions", "ci", "workflow", "yaml"] },
+  { name: "GitLab CI Generator", description: "Generate GitLab CI/CD pipeline YAML", path: "/gitlab-ci-generator", icon: <GitBranch className="w-4 h-4" />, tags: ["gitlab", "ci", "pipeline", "yaml"] },
+  // Infrastructure
+  { name: "K8s Generator", description: "Generate Kubernetes manifest YAML", path: "/k8s-generator", icon: <Container className="w-4 h-4" />, tags: ["kubernetes", "k8s", "deployment", "service", "ingress", "yaml"] },
+  { name: "Helm Chart Generator", description: "Generate Helm chart files", path: "/helm-chart-generator", icon: <Package className="w-4 h-4" />, tags: ["helm", "chart", "kubernetes", "k8s", "values"] },
+  { name: "Terraform tfvars Generator", description: "Generate Terraform variable files", path: "/terraform-tfvars-generator", icon: <FileCode className="w-4 h-4" />, tags: ["terraform", "tfvars", "iac", "hcl", "variables"] },
   { name: "Dockerfile Linter", description: "Lint Dockerfiles for best practices", path: "/dockerfile-linter", icon: <FileCode2 className="w-4 h-4" />, tags: ["docker", "dockerfile", "lint"] },
-  { name: "Git Command Builder", description: "Build complex git commands", path: "/git-builder", icon: <GitBranch className="w-4 h-4" />, tags: ["git", "command", "builder"] },
-  { name: "Cron Builder", description: "Build and understand cron expressions", path: "/cron-builder", icon: <Clock className="w-4 h-4" />, tags: ["cron", "schedule", "expression"] },
-  { name: "Port Reference", description: "Look up well-known port numbers", path: "/port-reference", icon: <Network className="w-4 h-4" />, tags: ["port", "tcp", "udp", "network"] },
+  { name: "YAML Validator", description: "Lint and format YAML configs", path: "/yaml-validator", icon: <ListTree className="w-4 h-4" />, tags: ["yaml", "validate", "lint", "kubernetes", "k8s"] },
+  // Cloud & Network
+  { name: "AWS ARN Parser", description: "Parse and validate AWS ARN strings", path: "/aws-arn-parser", icon: <Cloud className="w-4 h-4" />, tags: ["aws", "arn", "amazon", "cloud", "iam", "s3", "ec2"] },
+  { name: "Cloud Storage URL Parser", description: "Parse S3, GCS, Azure Blob URLs", path: "/cloud-storage-url-parser", icon: <HardDrive className="w-4 h-4" />, tags: ["s3", "gcs", "azure", "cloud", "storage", "bucket"] },
+  { name: "CIDR Calculator", description: "Subnet mask and host range from CIDR", path: "/cidr-calculator", icon: <Network className="w-4 h-4" />, tags: ["cidr", "subnet", "network", "ip", "vpc"] },
+  { name: "SSL Decoder", description: "Inspect SSL/TLS certificates", path: "/ssl-decoder", icon: <ShieldCheck className="w-4 h-4" />, tags: ["ssl", "tls", "certificate", "x509", "https"] },
   { name: "HTTP Headers", description: "Inspect response headers and security", path: "/http-headers", icon: <Globe className="w-4 h-4" />, tags: ["http", "headers", "security", "cors"] },
+  { name: "Port Reference", description: "Look up well-known port numbers", path: "/port-reference", icon: <Network className="w-4 h-4" />, tags: ["port", "tcp", "udp", "network"] },
+  // Observability & Security
+  { name: "PromQL Builder", description: "Build Prometheus queries visually", path: "/promql-builder", icon: <Activity className="w-4 h-4" />, tags: ["prometheus", "promql", "metrics", "monitoring", "grafana"] },
+  { name: "Regex Log Parser", description: "Test regex against log lines with named groups", path: "/regex-log-parser", icon: <Search className="w-4 h-4" />, tags: ["regex", "log", "parse", "named groups", "pattern"] },
+  { name: "Log Formatter", description: "Format and filter JSON logs", path: "/log-formatter", icon: <FileJson className="w-4 h-4" />, tags: ["log", "format", "filter", "json"] },
   { name: "Secret Scanner", description: "Detect exposed credentials and keys", path: "/secret-scanner", icon: <ShieldAlert className="w-4 h-4" />, tags: ["secret", "scan", "credentials", "api key", "aws", "token"] },
+  { name: "ENV Parser", description: "Parse and validate .env files", path: "/env-parser", icon: <Settings2 className="w-4 h-4" />, tags: ["env", "dotenv", "environment", "variables"] },
+  // Automation
+  { name: "Cron Builder", description: "Build and understand cron expressions", path: "/cron-builder", icon: <Clock className="w-4 h-4" />, tags: ["cron", "schedule", "expression"] },
+  { name: "Git Command Builder", description: "Build complex git commands", path: "/git-builder", icon: <GitBranch className="w-4 h-4" />, tags: ["git", "command", "builder"] },
 ];
 
 interface CommandPaletteProps {
