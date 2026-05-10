@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Search, Trash2, FileJson, AlertCircle, ChevronDown, ChevronUp, ClipboardPaste, FileDown } from "lucide-react";
+import { Search, Trash2, FileJson, AlertCircle, ChevronDown, ChevronUp, ClipboardPaste, FileDown, Upload } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 
@@ -106,6 +106,18 @@ export default function LogFormatter() {
     setExpandedRow(null);
   };
 
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setInputLogs(ev.target?.result as string ?? "");
+      setInputOpen(true);
+    };
+    reader.readAsText(file);
+    e.target.value = "";
+  };
+
   const downloadLogs = () => {
     const text = filteredLogs.map(l => l.raw).join("\n");
     const blob = new Blob([text], { type: "text/plain" });
@@ -120,16 +132,20 @@ export default function LogFormatter() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)]">
+    <div className="flex flex-col h-full">
 
       {/* ── Header ── */}
       <div className="mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center">
-            <FileJson className="w-6 h-6 mr-3 text-cyan-400" />
-            Log Formatter
-          </h1>
-          <p className="text-zinc-400 text-sm mt-1">Format JSON logs, filter by severity, and inspect complex payloads.</p>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+              <FileJson className="w-4 h-4 text-cyan-400" />
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-white">Log Formatter</h1>
+              <p className="text-xs text-zinc-500">Format JSON logs, filter by severity, and inspect complex payloads.</p>
+            </div>
+          </div>
         </div>
 
         {/* Search */}
@@ -214,7 +230,8 @@ export default function LogFormatter() {
             )}
           </div>
         ) : (
-          <div className="flex-1 overflow-y-auto custom-scrollbar font-mono text-[13px] divide-y divide-zinc-800/40">
+          <div className="flex-1 overflow-auto custom-scrollbar font-mono text-[13px] divide-y divide-zinc-800/40">
+            <div className="min-w-max">
             {filteredLogs.map(log => {
               const styles = LEVEL_STYLES[log.level!] || LEVEL_STYLES.unknown;
               const isExpanded = expandedRow === log.id;
@@ -237,7 +254,7 @@ export default function LogFormatter() {
                     )}
 
                     {/* Message */}
-                    <span className={`flex-1 min-w-0 truncate ${styles.text}`}>
+                    <span className={`whitespace-nowrap ${styles.text}`}>
                       {typeof log.message === "object"
                         ? JSON.stringify(log.message)
                         : (log.message || "").toString()}
@@ -262,12 +279,20 @@ export default function LogFormatter() {
                 </div>
               );
             })}
+            </div>
           </div>
         )}
       </div>
 
       {/* ── Collapsible Input Drawer ── */}
       <div className="mt-3 rounded-xl border border-zinc-800 bg-zinc-950 overflow-hidden">
+        <input
+          id="log-file-upload"
+          type="file"
+          accept=".log,.txt,.json,.jsonl"
+          className="hidden"
+          onChange={handleFileUpload}
+        />
         <button
           onClick={() => setInputOpen(o => !o)}
           className="w-full flex items-center justify-between px-4 py-3 text-sm text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50 transition-colors"
@@ -280,6 +305,14 @@ export default function LogFormatter() {
             )}
           </div>
           <div className="flex items-center space-x-3">
+            <label
+              htmlFor="log-file-upload"
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center gap-1.5 px-2.5 py-1 text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-lg cursor-pointer transition-colors"
+              title="Upload log file"
+            >
+              <Upload className="w-3.5 h-3.5" /> Upload file
+            </label>
             {inputOpen && (
               <button
                 onClick={(e) => { e.stopPropagation(); clearLogs(); }}

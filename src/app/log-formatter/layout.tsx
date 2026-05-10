@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import { toolMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = toolMeta({
   title: "Log Formatter",
-  description: "Format and filter JSON and plain-text logs online. Filter by severity level, search log lines, expand JSON payloads, and download results.",
-};
+  description: "Format and filter JSON and plain-text logs online. Filter by severity, search log lines, expand JSON payloads, and download results.",
+  path: "/log-formatter",
+});
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

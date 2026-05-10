@@ -141,7 +141,7 @@ export default function EnvParser() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)] max-w-6xl mx-auto">
+    <div className="flex flex-col h-full">
       <div className="mb-4 flex items-start space-x-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs">
         <Lock className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
         <p>
@@ -151,11 +151,15 @@ export default function EnvParser() {
 
       <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center">
-            <Settings2 className="w-6 h-6 mr-3 text-cyan-400" />
-            ENV File Parser
-          </h1>
-          <p className="text-zinc-400 text-sm mt-1">Parse, validate, and convert .env files to JSON securely in your browser.</p>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+              <Settings2 className="w-4 h-4 text-cyan-400" />
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-white">ENV File Parser</h1>
+              <p className="text-xs text-zinc-500">Parse, validate, and convert .env files to JSON securely in your browser.</p>
+            </div>
+          </div>
         </div>
       </div>
 

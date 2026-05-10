@@ -12,16 +12,10 @@ const Editor = dynamic(() => import("@monaco-editor/react"), {
 import * as yaml from "js-yaml";
 import { AlertCircle, AlertTriangle, FileDown, FileUp, Sparkles, Trash2, ShieldCheck, ListTree } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
-import { ShareButton } from "@/components/ui/share-button";
-import { getSharedState } from "@/lib/share";
 
 export default function YamlValidator() {
   const [inputData, setInputData] = useState<string>("");
 
-  useEffect(() => {
-    const s = getSharedState<{ input: string }>();
-    if (s?.input) setInputData(s.input);
-  }, []);
   const [errorLine, setErrorLine] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isValid, setIsValid] = useState<boolean>(true);
@@ -106,14 +100,18 @@ export default function YamlValidator() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)] max-w-6xl mx-auto">
+    <div className="flex flex-col h-full">
       <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center">
-            <ListTree className="w-6 h-6 mr-3 text-orange-400" />
-            YAML Validator
-          </h1>
-          <p className="text-zinc-400 text-sm mt-1">Linter and formatter for Kubernetes, Docker Compose, and CI/CD configs.</p>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
+              <ListTree className="w-4 h-4 text-orange-400" />
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-white">YAML Validator</h1>
+              <p className="text-xs text-zinc-500">Linter and formatter for Kubernetes, Docker Compose, and CI/CD configs.</p>
+            </div>
+          </div>
         </div>
 
         <div className="flex items-center space-x-2 bg-zinc-900 border border-zinc-800 p-1.5 rounded-lg">
@@ -190,7 +188,6 @@ export default function YamlValidator() {
                   disabled={!inputData.trim()}
                   className="text-zinc-500 hover:text-white hover:bg-zinc-800"
                 />
-                <ShareButton getState={() => ({ input: inputData })} disabled={!inputData.trim()} />
             </div>
           </div>
 

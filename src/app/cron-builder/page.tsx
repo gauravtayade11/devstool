@@ -5,16 +5,10 @@ import cronstrue from "cronstrue";
 import { CronExpressionParser } from "cron-parser";
 import { Clock, RefreshCw, Info, FileCode2 } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
-import { ShareButton } from "@/components/ui/share-button";
-import { getSharedState } from "@/lib/share";
 
 export default function CronBuilder() {
   const [expression, setExpression] = useState("");
 
-  useEffect(() => {
-    const s = getSharedState<{ expression: string }>();
-    if (s?.expression) setExpression(s.expression);
-  }, []);
   const [explanation, setExplanation] = useState("");
   const [error, setError] = useState<string | null>(null);
   // Parse expression
@@ -60,16 +54,19 @@ export default function CronBuilder() {
   ];
 
   return (
-    <div className="flex flex-col h-full max-w-5xl mx-auto py-4">
+    <div className="flex flex-col h-full py-4">
       <div className="mb-8">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center">
-            <Clock className="w-6 h-6 mr-3 text-emerald-400" />
-            Cron Expression Builder
-          </h1>
-          <ShareButton getState={() => ({ expression })} disabled={!expression} />
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+              <Clock className="w-4 h-4 text-emerald-400" />
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-white">Cron Expression Builder</h1>
+              <p className="text-xs text-zinc-500">Easily build, parse, and understand complex cron job schedules.</p>
+            </div>
+          </div>
         </div>
-        <p className="text-zinc-400 text-sm mt-1">Easily build, parse, and understand complex cron job schedules.</p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">

@@ -211,14 +211,18 @@ export default function DockerfileLinter() {
   const infos = lintResults.filter(r => r.level === 'info');
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)] max-w-7xl mx-auto">
+    <div className="flex flex-col h-full">
       <div className="mb-6 flex flex-col items-start gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center">
-             <Eraser className="w-6 h-6 mr-3 text-sky-400" />
-            Dockerfile Linter
-          </h1>
-          <p className="text-zinc-400 text-sm mt-1">Catch anti-patterns, security risks, and optimization missed-opportunities in Dockerfiles.</p>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
+              <Eraser className="w-4 h-4 text-sky-400" />
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-white">Dockerfile Linter</h1>
+              <p className="text-xs text-zinc-500">Catch anti-patterns, security risks, and optimization missed-opportunities in Dockerfiles.</p>
+            </div>
+          </div>
         </div>
       </div>
 

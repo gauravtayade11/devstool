@@ -132,13 +132,17 @@ export default function HttpHeaders() {
   };
 
   return (
-    <div className="flex flex-col h-full max-w-5xl mx-auto py-4">
+    <div className="flex flex-col h-full py-4">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center">
-          <Globe className="w-6 h-6 mr-3 text-indigo-400" />
-          HTTP Header Analyzer
-        </h1>
-        <p className="text-zinc-400 text-sm mt-1">Inspect response headers, identify missing security headers, and troubleshoot CORS.</p>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+            <Globe className="w-4 h-4 text-indigo-400" />
+          </div>
+          <div>
+            <h1 className="text-lg font-semibold text-white">HTTP Header Analyzer</h1>
+            <p className="text-xs text-zinc-500">Inspect response headers, identify missing security headers, and troubleshoot CORS.</p>
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-col gap-6">

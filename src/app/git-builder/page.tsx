@@ -172,13 +172,17 @@ export default function GitBuilder() {
   };
 
   return (
-    <div className="flex flex-col h-full max-w-5xl mx-auto py-4">
+    <div className="flex flex-col h-full py-4">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center">
-          <GitBranch className="w-6 h-6 mr-3 text-orange-500" />
-          Git Command Builder
-        </h1>
-        <p className="text-zinc-400 text-sm mt-1">Visually construct complex or rarely-used Git commands without checking the man pages.</p>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
+            <GitBranch className="w-4 h-4 text-orange-500" />
+          </div>
+          <div>
+            <h1 className="text-lg font-semibold text-white">Git Command Builder</h1>
+            <p className="text-xs text-zinc-500">Visually construct complex or rarely-used Git commands without checking the man pages.</p>
+          </div>
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-[250px_1fr] gap-8">

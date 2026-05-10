@@ -9,22 +9,15 @@ const Editor = dynamic(() => import("@monaco-editor/react"), {
   ssr: false,
   loading: () => <div className="flex-1 w-full bg-[#1e1e1e] animate-pulse" />,
 });
-import { FileDown, FileUp, Sparkles, Trash2, WrapText } from "lucide-react";
+import { Braces, FileDown, FileUp, Sparkles, Trash2, WrapText } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
-import { ShareButton } from "@/components/ui/share-button";
 import { ErrorAlert } from "@/components/ui/error-alert";
-import { getSharedState } from "@/lib/share";
 
 export default function JsonFormatter() {
   const [inputData, setInputData] = useState("");
   const [errorLine, setErrorLine] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const s = getSharedState<{ input: string }>();
-    if (s?.input) setInputData(s.input);
-  }, []);
 
   const handleFormat = () => {
     try {
@@ -107,11 +100,18 @@ export default function JsonFormatter() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)]">
+    <div className="flex flex-col h-full">
       <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">JSON Formatter</h1>
-          <p className="text-zinc-400 text-sm mt-1">Format, validate, and minify JSON data</p>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+              <Braces className="w-4 h-4 text-blue-400" />
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-white">JSON Formatter</h1>
+              <p className="text-xs text-zinc-500">Format, validate, and minify JSON data</p>
+            </div>
+          </div>
         </div>
 
         <div className="flex items-center space-x-2 bg-zinc-900 border border-zinc-800 p-1.5 rounded-lg">
@@ -194,7 +194,6 @@ export default function JsonFormatter() {
                 text={inputData}
                 className="text-zinc-500 hover:text-white hover:bg-zinc-800"
               />
-              <ShareButton getState={() => ({ input: inputData })} disabled={!inputData} />
           </div>
         </div>
 

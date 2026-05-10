@@ -94,7 +94,7 @@ export function AppLayout({ children }: LayoutProps) {
         {/* Dynamic Tool Content */}
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-zinc-950 custom-scrollbar relative">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay"></div>
-          <div className="relative z-10 w-full max-w-7xl mx-auto p-6 md:p-8">
+          <div className="relative z-10 w-full max-w-7xl mx-auto p-6 md:p-8 h-full">
             {children}
           </div>
         </main>

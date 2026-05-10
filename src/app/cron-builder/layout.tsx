@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import { toolMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = toolMeta({
   title: "Cron Expression Builder",
-  description: "Build, parse, and understand cron expressions. See plain-English explanations, next 5 run times in your timezone, and common pattern presets.",
-};
+  description: "Build, parse, and understand cron expressions. Plain-English explanations, next 5 run times in your timezone, and common presets.",
+  path: "/cron-builder",
+});
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

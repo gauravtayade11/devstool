@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { ShieldAlert, ShieldCheck, Search, Trash2, AlertTriangle, Info, ClipboardPaste } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
 import { useDebounce } from "@/lib/hooks/use-debounce";
+import { saveHistory, getHistory } from "@/lib/tool-history";
 
 interface SecretPattern {
   id: string;
@@ -226,7 +227,10 @@ const SEVERITY_CONFIG = {
 export default function SecretScanner() {
   const [input, setInput] = useState("");
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
+  const [history, setHistory] = useState<string[]>([]);
   const debouncedInput = useDebounce(input, 300);
+
+  useEffect(() => { setHistory(getHistory("secret-scanner")); }, []);
 
   const findings = useMemo<Finding[]>(() => {
     if (!debouncedInput.trim()) return [];
@@ -267,18 +271,20 @@ export default function SecretScanner() {
   const isClean = input.trim().length > 0 && findings.length === 0;
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)] max-w-6xl mx-auto">
+    <div className="flex flex-col h-full">
 
       {/* Header */}
       <div className="mb-5 flex flex-col md:flex-row md:items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center">
-            <ShieldAlert className="w-6 h-6 mr-3 text-red-400" />
-            Secret Scanner
-          </h1>
-          <p className="text-zinc-400 text-sm mt-1">
-            Paste code, logs, configs, or .env files and instantly detect exposed credentials before they cause damage.
-          </p>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+              <ShieldAlert className="w-4 h-4 text-red-400" />
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-white">Secret Scanner</h1>
+              <p className="text-xs text-zinc-500">Paste code, logs, configs, or .env files and instantly detect exposed credentials before they cause damage.</p>
+            </div>
+          </div>
         </div>
         <div className="flex items-center space-x-2 text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full shrink-0 self-start">
           <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
@@ -318,10 +324,22 @@ export default function SecretScanner() {
           <textarea
             value={input}
             onChange={(e) => { setInput(e.target.value); setExpandedIdx(null); }}
+            onBlur={() => { if (input.trim()) { saveHistory("secret-scanner", input); setHistory(getHistory("secret-scanner")); } }}
             placeholder="Paste any text here — .env file, source code, CI config, log output, docker-compose.yml..."
             className="flex-1 w-full p-4 bg-transparent text-zinc-300 font-mono text-xs leading-relaxed resize-none focus:outline-none custom-scrollbar"
             spellCheck={false}
           />
+          {history.length > 0 && (
+            <div className="flex flex-wrap gap-2 px-4 py-2 border-t border-zinc-800">
+              <span className="text-xs text-zinc-600 self-center">Recent:</span>
+              {history.map((h, i) => (
+                <button key={i} onClick={() => { setInput(h); setExpandedIdx(null); }}
+                  className="px-2.5 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-md text-zinc-500 hover:text-zinc-200 hover:border-zinc-700 transition-colors font-mono truncate max-w-[200px]">
+                  {h.length > 30 ? h.slice(0, 30) + "…" : h}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* ── Results ── */}
