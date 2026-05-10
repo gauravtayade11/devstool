@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+import { toolMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = toolMeta({
   title: "PromQL Builder",
-  description:
-    "Build Prometheus queries visually. Select metrics, add label filters, apply aggregations and functions — copy the PromQL expression instantly.",
-};
+  description: "Build Prometheus queries visually. Select metrics, add label filters, apply aggregations and functions — copy the PromQL expression instantly.",
+  path: "/promql-builder",
+});
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <>{children}</>;
 }

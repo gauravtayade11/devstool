@@ -12,16 +12,10 @@ const Editor = dynamic(() => import("@monaco-editor/react"), {
 import * as yaml from "js-yaml";
 import { AlertCircle, AlertTriangle, FileDown, FileUp, Sparkles, Trash2, ShieldCheck, ListTree } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
-import { ShareButton } from "@/components/ui/share-button";
-import { getSharedState } from "@/lib/share";
 
 export default function YamlValidator() {
   const [inputData, setInputData] = useState<string>("");
 
-  useEffect(() => {
-    const s = getSharedState<{ input: string }>();
-    if (s?.input) setInputData(s.input);
-  }, []);
   const [errorLine, setErrorLine] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isValid, setIsValid] = useState<boolean>(true);
@@ -194,7 +188,6 @@ export default function YamlValidator() {
                   disabled={!inputData.trim()}
                   className="text-zinc-500 hover:text-white hover:bg-zinc-800"
                 />
-                <ShareButton getState={() => ({ input: inputData })} disabled={!inputData.trim()} />
             </div>
           </div>
 

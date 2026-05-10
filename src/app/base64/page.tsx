@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import { ArrowRightLeft, Hash, Trash2, AlertCircle } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
-import { ShareButton } from "@/components/ui/share-button";
-import { getSharedState } from "@/lib/share";
 import { saveHistory, getHistory } from "@/lib/tool-history";
 
 export default function Base64Converter() {
@@ -59,15 +57,6 @@ export default function Base64Converter() {
     setOutput("");
     setError(null);
   };
-
-  useEffect(() => {
-    const s = getSharedState<{ input: string; mode: "encode" | "decode" }>();
-    if (s?.input) {
-      setMode(s.mode ?? "encode");
-      handleConversion(s.input, s.mode ?? "encode");
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className="flex flex-col h-full py-4">
@@ -155,7 +144,6 @@ export default function Base64Converter() {
                 <ArrowRightLeft className="w-3 h-3" />
                 <span>Swap</span>
               </button>
-              <ShareButton getState={() => ({ input, mode })} disabled={!input} />
               <CopyButton
                 text={output}
                 disabled={!output}

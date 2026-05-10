@@ -33,6 +33,7 @@ const tools = [
   "cloud-storage-url-parser",
   "promql-builder",
   "regex-log-parser",
+  "html-viewer",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

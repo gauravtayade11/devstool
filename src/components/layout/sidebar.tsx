@@ -8,7 +8,7 @@ import {
   FileJson, Code2, FileCode2, ListTree, GitBranch, Network,
   Globe, X, ShieldAlert, GitCompare, FileText, Container,
   ArrowLeftRight, ShieldCheck, Activity, Package, GitMerge,
-  Cloud, HardDrive, FileCode, Search, ChevronDown, ChevronRight,
+  Cloud, HardDrive, FileCode, Search, ChevronDown, ChevronRight, Eye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +27,7 @@ const toolCategories = [
       { name: "URL Encoder",        path: "/url-encoder",      icon: <Network className="w-4 h-4 mr-3" /> },
       { name: "UUID Generator",     path: "/uuid",             icon: <FileCode2 className="w-4 h-4 mr-3" /> },
       { name: "Timestamp Converter",path: "/timestamp",        icon: <Clock className="w-4 h-4 mr-3" /> },
+      { name: "HTML Viewer",         path: "/html-viewer",      icon: <Eye className="w-4 h-4 mr-3" /> },
     ],
   },
   {

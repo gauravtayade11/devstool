@@ -1,14 +1,14 @@
+import LZString from "lz-string";
+
 export function encodeState(state: unknown): string {
-  return btoa(JSON.stringify(state))
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=/g, "");
+  return LZString.compressToEncodedURIComponent(JSON.stringify(state));
 }
 
 export function decodeState<T>(encoded: string): T | null {
   try {
-    const base64 = encoded.replace(/-/g, "+").replace(/_/g, "/");
-    return JSON.parse(atob(base64)) as T;
+    const json = LZString.decompressFromEncodedURIComponent(encoded);
+    if (!json) return null;
+    return JSON.parse(json) as T;
   } catch {
     return null;
   }

@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import { toolMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "JSON ↔ YAML Converter",
-  description: "Convert JSON to YAML and YAML to JSON instantly in your browser. Auto-detects format, supports complex nested structures.",
-};
+export const metadata = toolMeta({
+  title: "JSON to YAML Converter",
+  description: "Convert JSON to YAML and YAML to JSON instantly. Auto-detects input format, supports complex nested structures — all client-side.",
+  path: "/json-yaml",
+});
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <>{children}</>;
 }
